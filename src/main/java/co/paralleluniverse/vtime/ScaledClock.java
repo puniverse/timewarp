@@ -1,7 +1,7 @@
 package co.paralleluniverse.vtime;
 
 /**
- * A clock providing scaled time (slowed down or accelerated) relative to another clock.
+ * A clock providing scaled time (slowed down or sped up) relative to another clock.
  * @author pron
  */
 public final class ScaledClock extends Clock {
