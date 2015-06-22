@@ -1,0 +1,171 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '1.2.1'
+    id 'maven'
+    id 'signing'
+}
+
+
+sourceCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+group               = "co.paralleluniverse"
+version             = "0.1.0-SNAPSHOT"
+status              = "integration"
+description         = "Virtual Time for the JVM"
+ext.url             = "http://puniverse.github.com/timewarp"
+ext.vendor          = "Parallel Universe Software Co."
+ext.licenseName     = "The MIT License"
+ext.licenseUrl      = "http://opensource.org/licenses/MIT"
+ext.scmUrl          = "https://github.com/puniverse/timewarp"
+ext.scmConnection   = "https://github.com/puniverse/timewarp.git"
+
+ext.distDir         = "$buildDir/dist"
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.ow2.asm:asm:5.0.4"
+    testCompile 'junit:junit:4.10'
+}
+
+jar {
+    manifest {
+        attributes(
+	            "Built-By"                  :   System.getProperty("user.name"),
+	            "Implementation-Title"      :   project.name,
+	            "Implementation-Version"    :   version,
+	            "Implementation-Vendor"     :   vendor,
+	            "Premain-Class"             :   "co.paralleluniverse.vtime.JavaAgent",
+                    "Agent-Class"               :   "co.paralleluniverse.vtime.JavaAgent",
+        )
+    }
+}
+
+shadowJar {
+    outputs.upToDateWhen { false }
+        
+    // artifactAttached = false
+    classifier = '' // 'shadow'
+    destinationDir = file("$buildDir/libs")
+
+    // dependencies { exclude(dependency('co.paralleluniverse:capsule:.*')) }
+    
+    exclude 'META-INF/**'
+    exclude 'licenses/**'
+    exclude 'about.html'
+    exclude 'javax/inject/**'
+    exclude 'org/apache/log4j/lf5/**'
+    exclude 'org/apache/log4j/xml/log4j.dtd'
+    exclude '**/version.properties'
+    exclude 'META-INF/INDEX.LIST'
+
+    relocate 'org.objectweb.asm.', 'co.paralleluniverse.asm.'
+            
+    manifest.inheritFrom jar.manifest
+            
+    //    doLast {
+    //        logger.info("$buildDir/libs/${project.name}-${project.version}-shadow.jar -> $buildDir/libs/${project.name}-${project.version}.jar")
+    //        file("$buildDir/libs/${project.name}-${version}-shadow.jar").renameTo(file("$buildDir/libs/${project.name}-${project.version}.jar"))
+    //    }
+}
+
+javadoc {
+    options.noDeprecated = true
+    excludes = [ "**/Clock_.java","**/JavaAgent.java" ]
+    options {
+        links = [ "http://docs.oracle.com/javase/7/docs/api/" ]
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
+
+signing {
+    required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { deployment -> signing.signPom(deployment) }
+
+            repository(
+                url: (isReleaseVersion ?
+	                        "https://oss.sonatype.org/service/local/staging/deploy/maven2" :
+	                        "https://oss.sonatype.org/content/repositories/snapshots")) {
+                // User and Password are taken from ~/.gradle/gradle.properties
+                authentication(userName: project.sonatypeUsername, password: project.sonatypePassword)
+            }
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description project.description
+                url project.url
+                scm {
+                    url project.scmUrl
+                    connection project.scmConnection
+                    developerConnection project.scmConnection
+                }
+                licenses {
+                    license {
+                        name project.licenseName
+                        url project.licenseUrl
+                        distribution 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'pron'
+                        name 'Ron Pressler'
+                    }
+                }
+            }
+        }
+    }
+}
+
+[build, install, signArchives, uploadArchives]*.dependsOn shadowJar
+    
+install.repositories.mavenInstaller {
+    pom.whenConfigured {
+        it.dependencies.clear()
+    }
+}
+
+uploadArchives.repositories.mavenDeployer {
+    pom.whenConfigured {
+        it.dependencies.clear()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
