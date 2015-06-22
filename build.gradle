@@ -16,7 +16,9 @@ plugins {
 }
 
 
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 group               = "co.paralleluniverse"
