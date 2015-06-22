@@ -1,10 +1,9 @@
 
-# Time Warp
-## Virtual Time for the JVM
+# Time Warp<br>Virtual Time for the JVM
 
 This library lets you create virtual-time clocks and install them as the JVM's clock to help with testing.
 
-A {@link Clock virtual-time clock} will modify the operation of
+A virtual-time `Clock` will modify the operation of
 `System.currentTimeMillis()`, `System#nanoTime()`, `Thread.sleep`, `Object.wait(long)` 
 and any other operation relying on timeouts.
 
