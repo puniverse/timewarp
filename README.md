@@ -7,8 +7,15 @@ A virtual-time `Clock` will modify the operation of
 `System.currentTimeMillis()`, `System.nanoTime()`, `Thread.sleep`, `Object.wait(long)` 
 and any other operation relying on timeouts.
 
-Use one of the provided clock classes: `SystemClock`, `ScaledClock`, or `ManualClock`, and install
-the clock using the `VirtualClock` class.
+## Usage
+
+1. Clone and build the repository with `./gradlew` or use Maven artifact `co.paralleluniverse:timewarp:0.1.0-SNAPSHOT`
+from the Sonatype snapshot repository (`https://oss.sonatype.org/content/repositories/snapshots`)
+
+2. Add the JAR file to your bootstrap classpath with `-Xbootclasspath/a:[timewarp jar]` and as an agent
+with `-javaagent:[timewarp jar]`
+
+3. Install one of the provided clocks, `SystemClock`, `ScaledClock`, or `ManualClock`, using the `VirtualClock` class.
 
 ## License
 
