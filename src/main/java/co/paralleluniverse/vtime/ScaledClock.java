@@ -8,8 +8,8 @@ public final class ScaledClock extends Clock {
     private final Clock source;
     private final double scale;
 
-    protected final long startTime;
-    protected final long startNanos;
+    private final long startTime;
+    private final long startNanos;
 
     /**
      * Constructs a {@code ScaledClock} of the a given clock.
