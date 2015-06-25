@@ -7,6 +7,9 @@ A virtual-time `Clock` will modify the operation of
 `System.currentTimeMillis()`, `System.nanoTime()`, `Thread.sleep`, `Object.wait(long)` 
 and any other operation relying on timeouts.
 
+Use this library to slow-down/speed-up/manually control the JVM's clock to make your
+timing-sensitive tests less flaky.
+
 ## Usage
 
 1. Clone and build the repository with `./gradlew` or use Maven artifact `co.paralleluniverse:timewarp:0.1.0-SNAPSHOT`
