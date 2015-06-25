@@ -59,7 +59,7 @@ public final class ManualClock extends Clock {
 
         for (;;) {
             Scheduled s = waiters.peek();
-            if (s == null || s.deadline < nanos)
+            if (s == null || s.deadline > nanos)
                 break;
             // at this point we know there are runnable waiters
             // new ones won't be added because we've already advanced nanos
