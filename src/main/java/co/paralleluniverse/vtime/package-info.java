@@ -6,15 +6,17 @@
  *
  * This library lets you create virtual-time clocks and install them as the JVM's clock to help with testing.
  * A {@link Clock virtual-time clock} will modify the operation of
- * {@link System#currentTimeMillis()}, {@link System#nanoTime()}, {@link Thread#sleep(long) Thread.sleep},
- * {@link Object#wait(long)} and any other operation relying on timeouts.
+ * {@link java.lang.System#currentTimeMillis()}, {@link java.lang.System#nanoTime()}, {@link java.lang.Thread#sleep(long) Thread.sleep},
+ * {@link java.lang.Object#wait(long)}, {@link java.util.concurrent.locks.LockSupport#parkNanos(long) LockSupport.parkNanos} and any other operation relying on timeouts.
  *
  * <p>
  * To use this library, its JAR must be loaded as a Java agent, <i>as well as</i> put on the bootstrap class path.
  * <p>
- * Then, use one of the provided {@link Clock clock} classes: {@link SystemClock}, {@link ScaledClock}, or {@link ManualClock}, and install
- * the clock using the {@link VirtualClock} class.
+ * Then, use one of the provided {@link co.paralleluniverse.vtime.Clock clock} classes: 
+ * {@link co.paralleluniverse.vtime.SystemClock}, {@link co.paralleluniverse.vtime.ScaledClock}, or {@link co.paralleluniverse.vtime.ManualClock}, 
+ * and install the clock using the {@link co.paralleluniverse.vtime.VirtualClock} class.
  *
+ * <h2>Liscense</h2>
  * <pre>
  * Copyright (c) 2015, Parallel Universe Software Co.
  *

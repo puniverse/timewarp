@@ -24,7 +24,8 @@ from the Sonatype snapshot repository (`https://oss.sonatype.org/content/reposit
 2. Add the JAR file to your bootstrap classpath with `-Xbootclasspath/a:[timewarp jar]` and as an agent
 with `-javaagent:[timewarp jar]`
 
-3. Install one of the provided clocks, `SystemClock`, `ScaledClock`, or `ManualClock`, using the `VirtualClock` class.
+3. Install one of the provided clocks, `SystemClock`, `ScaledClock`, or `ManualClock`, using the `VirtualClock` class. 
+Please consult the [Javadocs](http://docs.paralleluniverse.co/timewarp/javadoc/) for detailed information.
 
 ## License
 
