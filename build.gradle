@@ -114,6 +114,12 @@ signing {
     sign configurations.archives
 }
 
+if (!project.hasProperty("sonatypeUsername") || !project.hasProperty("sonatypePassword")) {
+    println "sonatype username or password not set"
+    ext.sonatypeUsername = ""
+    ext.sonatypePassword = ""
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
