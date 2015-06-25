@@ -4,7 +4,7 @@
 This library lets you create virtual-time clocks and install them as the JVM's clock to help with testing.
 
 A virtual-time `Clock` will modify the operation of
-`System.currentTimeMillis()`, `System.nanoTime()`, `Thread.sleep`, `Object.wait(long)` 
+`System.currentTimeMillis()`, `System.nanoTime()`, `Thread.sleep`, `Object.wait(long)`, `LockSupport.parkNanos` 
 and any other operation relying on timeouts.
 
 Use this library to slow-down/speed-up/manually control the JVM's clock to make your
