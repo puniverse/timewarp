@@ -10,6 +10,12 @@ and any other operation relying on timeouts.
 Use this library to slow-down/speed-up/manually control the JVM's clock to make your
 timing-sensitive tests less flaky.
 
+## Status
+
+Early days. 
+We've begun using TimeWarp's `ScaledClock` (and `SystemClock`) in [Quasar](https://github.com/puniverse/quasar) tests.
+`ManualClock` hasn't been tested, so it probably doesn't work yet.
+
 ## Usage
 
 1. Clone and build the repository with `./gradlew` or use Maven artifact `co.paralleluniverse:timewarp:0.1.0-SNAPSHOT`
