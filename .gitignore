@@ -14,3 +14,4 @@ private/
 .nb-gradle-properties
 .bdb/
 log4j.xml
+/push_docs.sh
