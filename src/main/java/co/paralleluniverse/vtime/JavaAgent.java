@@ -49,7 +49,7 @@ public final class JavaAgent {
                                         if ("sleep".equals(name))
                                             return callClockMethod("Thread_sleep", desc);
                                         break;
-                                    case "sun/misc/Unafe":
+                                    case "sun/misc/Unsafe":
                                         if ("park".equals(name))
                                             return callClockMethod("Unsafe_park", desc);
                                         break;
