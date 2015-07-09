@@ -35,7 +35,7 @@ public final class JavaAgent {
                                 switch (owner) {
                                     case "java/lang/Object":
                                         if ("wait".equals(name) && !desc.startsWith("()"))
-                                            return callClockMethod("Object_wait", "(Ljava/lang/Object;" + desc.substring(1));
+                                            return callClockMethod("Object_wait", instanceToStatic(owner, desc));
                                         break;
                                     case "java/lang/System":
                                         switch (name) {
@@ -51,7 +51,7 @@ public final class JavaAgent {
                                         break;
                                     case "sun/misc/Unsafe":
                                         if ("park".equals(name))
-                                            return callClockMethod("Unsafe_park", "(Lsun/misc/Unsafe;" + desc.substring(1));
+                                            return callClockMethod("Unsafe_park", instanceToStatic(owner, desc));
                                         break;
                                 }
                                 return false;
@@ -60,6 +60,10 @@ public final class JavaAgent {
                             private boolean callClockMethod(String name, String desc) {
                                 super.visitMethodInsn(Opcodes.INVOKESTATIC, CLOCK, name, desc, false);
                                 return true;
+                            }
+
+                            private String instanceToStatic(String owner, String desc) {
+                                return "(L" + owner + ";" + desc.substring(1);
                             }
                         };
                     }
