@@ -51,7 +51,7 @@ public final class JavaAgent {
                                         break;
                                     case "sun/misc/Unsafe":
                                         if ("park".equals(name))
-                                            return callClockMethod("Unsafe_park", desc);
+                                            return callClockMethod("Unsafe_park", "(Lsun/misc/Unsafe;" + desc.substring(1));
                                         break;
                                 }
                                 return false;

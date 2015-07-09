@@ -28,7 +28,7 @@ public final class Clock_ {
         VirtualClock.get().Thread_sleep(millis, nanos);
     }
 
-    public static void Unsafe_park(boolean isDeadline, long timeout) {
-        VirtualClock.get().Unsafe_park(isDeadline, timeout);
+    public static void Unsafe_park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout) {
+        VirtualClock.get().Unsafe_park(unsafe, isAbsolute, timeout);
     }
 }

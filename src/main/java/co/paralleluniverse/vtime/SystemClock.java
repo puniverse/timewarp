@@ -42,7 +42,7 @@ public final class SystemClock extends Clock {
     }
 
     @Override
-    void Unsafe_park(boolean isDeadline, long timeout) {
-        park(isDeadline, timeout);
+    void Unsafe_park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout) {
+        park(unsafe, isAbsolute, timeout);
     }
 }

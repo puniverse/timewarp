@@ -1,7 +1,5 @@
 package co.paralleluniverse.vtime;
 
-import java.util.concurrent.locks.LockSupport;
-
 /**
  * Encapsulates the behavior of all JDK time-related operations.
  *
@@ -65,7 +63,7 @@ public abstract class Clock {
         Thread_sleep(toMillis(millis, nanos));
     }
 
-    abstract void Unsafe_park(boolean isDeadline, long timeout);
+    abstract void Unsafe_park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout);
 
     private static long toMillis(long millis, int nanos) {
         if (millis < 0)
@@ -80,15 +78,13 @@ public abstract class Clock {
     /**
      * Calls the actual {@code UNSAFE.park(isDeadline, timeout)}.
      */
-    static void park(boolean isDeadline, long timeout) {
-        // UNSAFE.park(isDeadline, timeout);
-        if (isDeadline)
-            LockSupport.parkUntil(timeout);
-        else if (timeout > 0)
-            LockSupport.parkNanos(timeout);
-        else
-            LockSupport.park();
+    static void park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout) {
+        unsafe.park(isAbsolute, timeout);
+//        if (isDeadline)
+//            LockSupport.parkUntil(timeout);
+//        else if (timeout > 0)
+//            LockSupport.parkNanos(timeout);
+//        else
+//            LockSupport.park();
     }
-
-    // private static sun.misc.Unsafe UNSAFE = UtilUnsafe.getUnsafe();
 }

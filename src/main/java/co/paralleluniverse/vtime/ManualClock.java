@@ -116,14 +116,14 @@ public final class ManualClock extends Clock {
     }
 
     @Override
-    void Unsafe_park(boolean isDeadline, long timeout) {
+    void Unsafe_park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout) {
         if (timeout <= 0)
-            park(isDeadline, nanos);
+            park(unsafe, isAbsolute, nanos);
         else {
-            final long deadline = nanos + (isDeadline ? TimeUnit.MILLISECONDS.toNanos(timeout - System_currentTimeMillis()) : timeout);
+            final long deadline = nanos + (isAbsolute ? TimeUnit.MILLISECONDS.toNanos(timeout - System_currentTimeMillis()) : timeout);
             waiters.add(unpark(deadline, Thread.currentThread()));
             if (nanos < deadline)
-                park(false, 0L);
+                park(unsafe, false, 0L);
         }
     }
 

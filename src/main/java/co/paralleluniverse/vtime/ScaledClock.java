@@ -34,7 +34,7 @@ public final class ScaledClock extends Clock {
      * a scale {@literal <} 1 would make this clock run slower relative to the system clock.
      * <p>
      * Same as calling {@link #ScaledClock(Clock, double) ScaledClock(SystemClock.instance(), scale)}.
-     * 
+     *
      * @param scale the scale by which the system clock's time is scaled; must be positive.
      */
     public ScaledClock(double scale) {
@@ -67,10 +67,14 @@ public final class ScaledClock extends Clock {
     }
 
     @Override
-    void Unsafe_park(boolean isDeadline, long timeout) {
-        if (!isDeadline)
-            source.Unsafe_park(isDeadline, (long) (timeout / scale));
+    void Unsafe_park(sun.misc.Unsafe unsafe, boolean isAbsolute, long timeout) {
+        if (timeout <= 0) {
+            park(unsafe, isAbsolute, timeout);
+            return;
+        }
+        if (!isAbsolute)
+            source.Unsafe_park(unsafe, isAbsolute, (long) (timeout / scale));
         else
-            source.Unsafe_park(isDeadline, source.currentTimeMillis() + (long) ((timeout - currentTimeMillis()) / scale));
+            source.Unsafe_park(unsafe, isAbsolute, source.currentTimeMillis() + (long) ((timeout - currentTimeMillis()) / scale));
     }
 }
