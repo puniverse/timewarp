@@ -16,7 +16,7 @@ public final class JavaAgent {
 
             @Override
             protected boolean filter(String className) {
-                return className.startsWith(PACKAGE);
+                return className == null || className.startsWith(PACKAGE);
             }
 
             @Override
