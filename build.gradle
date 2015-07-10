@@ -78,11 +78,6 @@ shadowJar {
     relocate 'org.objectweb.asm.', 'co.paralleluniverse.asm.'
             
     manifest.inheritFrom jar.manifest
-            
-    //    doLast {
-    //        logger.info("$buildDir/libs/${project.name}-${project.version}-shadow.jar -> $buildDir/libs/${project.name}-${project.version}.jar")
-    //        file("$buildDir/libs/${project.name}-${version}-shadow.jar").renameTo(file("$buildDir/libs/${project.name}-${project.version}.jar"))
-    //    }
 }
 
 javadoc {
