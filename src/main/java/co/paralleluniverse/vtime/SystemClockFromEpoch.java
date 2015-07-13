@@ -7,12 +7,7 @@ package co.paralleluniverse.vtime;
  * @author jleskovar
  */
 public final class SystemClockFromEpoch extends Clock {
-    private static final SystemClock INSTANCE = new SystemClock();
     private final long offset;
-
-    public static Clock instance() {
-        return INSTANCE;
-    }
 
     public SystemClockFromEpoch(long epoch) {
         this.offset = epoch - SystemClock.instance().currentTimeMillis();
