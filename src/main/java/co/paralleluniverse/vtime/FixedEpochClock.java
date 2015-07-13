@@ -6,26 +6,32 @@ package co.paralleluniverse.vtime;
  * 
  * @author jleskovar
  */
-public final class SystemClockFromEpoch extends Clock {
+public final class FixedEpochClock extends Clock {
     private final long offset;
+    private final Clock baseClock;
 
-    public SystemClockFromEpoch(long epoch) {
-        this.offset = epoch - SystemClock.instance().currentTimeMillis();
+    public FixedEpochClock(long epoch) {
+        this(SystemClock.instance(), epoch);
+    }
+
+    public FixedEpochClock(Clock baseClock, long epoch) {
+        this.baseClock = baseClock;
+        this.offset = epoch - baseClock.currentTimeMillis();
     }
 
     @Override
     public String toString() {
-        return "SystemClockFromEpoch";
+        return "FixedEpochClock";
     }
 
     @Override
     long System_currentTimeMillis() {
-        return System.currentTimeMillis() + offset;
+        return baseClock.currentTimeMillis() + offset;
     }
 
     @Override
     long System_nanoTime() {
-        return System.nanoTime() + (offset * 1_000_000);
+        return baseClock.nanoTime() + (offset * 1_000_000);
     }
 
     @Override
