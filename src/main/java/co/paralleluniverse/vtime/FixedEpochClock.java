@@ -1,8 +1,8 @@
 package co.paralleluniverse.vtime;
 
 /**
- * Continuously-running system clock with a fixed epoch.
- * Provides real-time from a fixed time base
+ * Clock instance that has a fixed epoch. By default will return a continuously-running 
+ * system clock from a fixed time base.
  * 
  * @author jleskovar
  */
