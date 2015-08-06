@@ -1,5 +1,9 @@
 /*
-*/
+ * Copyright (c) 2015, Parallel Universe Software Co. All rights reserved.
+ * 
+ * This program and the accompanying materials are license under the terms of the
+ * MIT license.
+ */
 /**
  * <h1>Time Warp</h1>
  * <h2>Virtual Time for the JVM</h2>

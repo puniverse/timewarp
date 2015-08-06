@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2015, Parallel Universe Software Co. All rights reserved.
+ * 
+ * This program and the accompanying materials are license under the terms of the
+ * MIT license.
  */
 package co.paralleluniverse.vtime;
 
