@@ -20,7 +20,7 @@
  * {@link co.paralleluniverse.vtime.SystemClock}, {@link co.paralleluniverse.vtime.ScaledClock}, or {@link co.paralleluniverse.vtime.ManualClock}, 
  * and install the clock using the {@link co.paralleluniverse.vtime.VirtualClock} class.
  *
- * <h2>Liscense</h2>
+ * <h2>License</h2>
  * <pre>
  * Copyright (c) 2015, Parallel Universe Software Co.
  *
