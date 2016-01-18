@@ -26,12 +26,15 @@ with `-javaagent:[timewarp jar]`
 
 3. Install one of the provided clocks, `SystemClock`, `ScaledClock`, or `ManualClock`, using the `VirtualClock` class. 
 Please consult the [Javadocs](http://docs.paralleluniverse.co/timewarp/javadoc/) for detailed information.
+Alternatively, you can pass an integer as a command-line argument to the agent (e.g. `-javaagent:[timewarp jar]=3`),
+which would install a global scaling clock, that would slow down the system clock by a factor equal to the parameter.
+So an argument of 3 would install a `ScaledClock` with a scaling factor of `0.33333`.
 
 ## License
 
 MIT
 
-Copyright (c) 2015, Parallel Universe Software Co. All rights reserved.
+Copyright (c) 2015-2016, Parallel Universe Software Co. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
