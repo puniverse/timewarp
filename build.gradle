@@ -1,16 +1,6 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
-    }
-}
-
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '1.2.1'
+    id 'com.github.johnrengelman.shadow' version '4.0.1'
     id 'maven'
     id 'signing'
 }
@@ -22,7 +12,7 @@ targetCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 group               = "co.paralleluniverse"
-version             = "0.1.0-SNAPSHOT"
+version             = "0.2.0-SNAPSHOT"
 status              = "integration"
 description         = "Virtual Time for the JVM"
 ext.url             = "http://puniverse.github.com/timewarp"
@@ -40,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    compile "org.ow2.asm:asm:5.0.4"
+    compile 'org.ow2.asm:asm:7.0'
     testCompile 'junit:junit:4.10'
 }
 
@@ -74,8 +64,9 @@ shadowJar {
     exclude 'org/apache/log4j/xml/log4j.dtd'
     exclude '**/version.properties'
     exclude 'META-INF/INDEX.LIST'
+    exclude 'module-info.class'
 
-    relocate 'org.objectweb.asm.', 'co.paralleluniverse.asm.'
+    relocate 'org.objectweb.asm.', 'co.paralleluniverse.timewarp.asm.'
             
     manifest.inheritFrom jar.manifest
 }
